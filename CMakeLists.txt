@@ -1,7 +1,7 @@
 ﻿# CMakeList.txt : Top-level CMake project file, do global configuration
 # and include sub-projects here.
 #
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.10)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -11,5 +11,12 @@ endif()
 
 project ("Duck")
 
-# Include sub-projects.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# OpenGl dependencies
+add_subdirectory (external/glfw)
+add_subdirectory (external/glew)
+
+# Add the Duck executable
 add_subdirectory ("Duck")
