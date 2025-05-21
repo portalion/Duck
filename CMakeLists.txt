@@ -19,4 +19,4 @@ add_subdirectory (external/glfw)
 add_subdirectory (external/glew)
 
 # Add the Duck executable
-add_subdirectory ("Duck")
+add_subdirectory (src/App)
