@@ -2,13 +2,6 @@
 #include "glm/glm.hpp"
 #include "utils/GlCall.h"
 
-enum class VertexDataType
-{
-	PositionVertexData = 1,
-	PositionColorVertexData = 2,
-	PositionNormalVertexData = 3,
-};
-
 struct PositionVertexData
 {
 	glm::vec4 Position;
