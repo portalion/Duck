@@ -1,12 +1,11 @@
 project (engine)
 
 add_library(${PROJECT_NAME} 
-	src/IndexBuffer.cpp
-	src/Shader.cpp
-	src/ShaderBuilder.cpp
-	src/VertexArray.cpp
-	src/VertexBuffer.cpp
-	src/VertexLayout.cpp
+	"src/IndexBuffer.cpp"
+	"src/Shader.cpp"
+	"src/ShaderBuilder.cpp"
+	"include/engine/VertexArray.ipp"
+	"src/VertexBuffer.cpp"
 )
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
