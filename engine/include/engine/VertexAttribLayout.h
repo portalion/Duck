@@ -36,3 +36,18 @@ struct VertexAttribLayout<PositionNormalVertexData> {
 		GLCall(glEnableVertexAttribArray(1));
 	}
 };
+
+template<>
+struct VertexAttribLayout<PositionNormalTextureVertexData> {
+	static void Enable() {
+		GLCall(glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(PositionNormalTextureVertexData),
+			(void*)offsetof(PositionNormalTextureVertexData, Position)));
+		GLCall(glEnableVertexAttribArray(0));
+		GLCall(glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(PositionNormalTextureVertexData),
+			(void*)offsetof(PositionNormalTextureVertexData, Normal)));
+		GLCall(glEnableVertexAttribArray(1)); 
+		GLCall(glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(PositionNormalTextureVertexData),
+			(void*)offsetof(PositionNormalTextureVertexData, TextureCoords)));
+		GLCall(glEnableVertexAttribArray(2));
+	}
+};

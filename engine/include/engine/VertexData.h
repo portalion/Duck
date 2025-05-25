@@ -18,3 +18,10 @@ struct PositionColorVertexData
 	glm::vec4 Position;
 	glm::vec4 Color;
 };
+
+struct PositionNormalTextureVertexData
+{
+	glm::vec4 Position;
+	glm::vec4 Normal;
+	glm::vec2 TextureCoords;
+};
