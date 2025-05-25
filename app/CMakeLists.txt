@@ -1,6 +1,6 @@
 ﻿project(Duck)
 
-add_executable (${PROJECT_NAME} "src/main.cpp" "src/App.h" "src/App.cpp")
+add_executable (${PROJECT_NAME} "src/main.cpp" "src/App.h" "src/App.cpp" "src/Camera.cpp" "src/Camera.h")
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 
