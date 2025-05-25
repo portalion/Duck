@@ -6,7 +6,7 @@ add_library(${PROJECT_NAME}
 	"src/ShaderBuilder.cpp"
 	"include/engine/VertexArray.ipp"
 	"src/VertexBuffer.cpp"
-)
+ "src/utils/GlCall.cpp")
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 20)
 

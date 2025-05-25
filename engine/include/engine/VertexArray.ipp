@@ -1,6 +1,6 @@
 #pragma once
 #include "VertexArray.h"
-#include <utils/GlCall.h>
+#include "engine/utils/GlCall.h"
 
 template<typename VertexData>
 inline VertexArray<VertexData>::VertexArray(const VertexBuffer& vbo)

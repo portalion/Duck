@@ -19,3 +19,4 @@ private:
 	unsigned int id;
 };
 
+#include "VertexArray.ipp"
