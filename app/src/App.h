@@ -12,6 +12,8 @@ private:
 
 	glm::mat4 projectionMatrix;
 	Camera camera;
+
+	bool InitializeContext(float width, float height);
 public:
 	App();
 	~App();

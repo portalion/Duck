@@ -3,24 +3,22 @@
 #include "engine/ShaderBuilder.h"
 #include "Square.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
-App::App()
+bool App::InitializeContext(float width, float height)
 {
-    const float width = 800.f;
-    const float height = 600.f;
-
     if (!glfwInit())
     {
-        isRunning = false;
-        return;
+        return false;
     }
 
     window = glfwCreateWindow(width, height, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
-		isRunning = false;
-        return;
+        return false;
     }
 
     /* Make the window's context current */
@@ -29,12 +27,35 @@ App::App()
     if (glewInit() != GLEW_OK)
     {
         std::cerr << "Cannot initiate glew" << std::endl;
-        isRunning = false;
-        return;
+        return false;
     }
+
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+    // Setup Platform/Renderer backends
+    ImGui_ImplGlfw_InitForOpenGL(window, true);          // Second param install_callback=true will install GLFW callbacks and chain to existing ones.
+    ImGui_ImplOpenGL3_Init();
 
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    return true;
+}
+
+App::App()
+{
+    const float width = 800.f;
+    const float height = 600.f;
+
+	if (!InitializeContext(width, height))
+	{
+		std::cerr << "Failed to initialize application context." << std::endl; 
+        isRunning = false;
+		return;
+	}
 
     constexpr float fov = glm::radians(45.0f); 
     const float aspectRatio = width / height;     
@@ -46,6 +67,9 @@ App::App()
 
 App::~App()
 {
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwTerminate();
 }
 
@@ -64,6 +88,11 @@ void App::HandleInput()
 
 void App::Run()
 {
+	if (!isRunning)
+	{
+		return;
+	}
+
     ShaderBuilder builder("resources/shaders/");
     auto defaultShader = builder.AddShader(ShaderType::Vertex, "default")
         .AddShader(ShaderType::Fragment, "default").Build();
@@ -77,10 +106,19 @@ void App::Run()
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
 		HandleInput();
 		Update();
         Render();
         square.Render();
+		ImGui::ShowDemoWindow();
+
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(window);
         glfwPollEvents();

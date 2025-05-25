@@ -20,7 +20,6 @@ add_subdirectory (engine)
 # Add the Duck executable
 add_subdirectory (app)
 
-
 # Coping resources folder
 add_custom_command(
     OUTPUT ${CMAKE_BINARY_DIR}/resources_stamp
