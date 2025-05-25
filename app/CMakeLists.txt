@@ -33,3 +33,19 @@ target_link_libraries (${PROJECT_NAME}
 	imgui
 	stb_image
 )
+
+# Coping resources folder
+add_custom_command(
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/resources_stamp
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/resources
+            ${CMAKE_CURRENT_BINARY_DIR}/resources
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_CURRENT_BINARY_DIR}/resources_stamp
+    COMMENT "Copying resources folder..."
+)
+
+add_custom_target(copy_resources ALL
+    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/resources_stamp
+)
+
+add_dependencies(${PROJECT_NAME} copy_resources)
