@@ -10,7 +10,7 @@ struct PositionVertexData
 struct PositionNormalVertexData
 {
 	glm::vec4 Position;
-	glm::vec4 Normal;
+	glm::vec3 Normal;
 };
 
 struct PositionColorVertexData
@@ -22,6 +22,13 @@ struct PositionColorVertexData
 struct PositionNormalTextureVertexData
 {
 	glm::vec4 Position;
-	glm::vec4 Normal;
+	glm::vec3 Normal;
 	glm::vec2 TextureCoords;
+};
+
+struct PositionNormalCubeTextureVertexData
+{
+	glm::vec4 Position;
+	glm::vec3 Normal;
+	glm::vec3 TextureCoords;
 };
