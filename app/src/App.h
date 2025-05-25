@@ -2,13 +2,16 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include "engine/Renderable.h"
-#include "engine/VertexData.h"
+#include "Camera.h"
 
 class App
 {
 private:
 	GLFWwindow* window;
 	bool isRunning = true;
+
+	glm::mat4 projectionMatrix;
+	Camera camera;
 public:
 	App();
 	~App();
