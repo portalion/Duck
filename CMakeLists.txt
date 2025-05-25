@@ -13,6 +13,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_subdirectory (external/glfw)
 add_subdirectory (external/glew)
 add_subdirectory (external/glm)
+add_subdirectory (external/stb_image)
 
 # Add engine project
 add_subdirectory (engine)
