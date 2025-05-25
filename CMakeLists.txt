@@ -19,3 +19,18 @@ add_subdirectory (engine)
 
 # Add the Duck executable
 add_subdirectory (app)
+
+
+# Coping resources folder
+add_custom_command(
+    OUTPUT ${CMAKE_BINARY_DIR}/resources_stamp
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/resources
+            ${CMAKE_BINARY_DIR}/resources
+    COMMAND ${CMAKE_COMMAND} -E touch ${CMAKE_BINARY_DIR}/resources_stamp
+    COMMENT "Copying resources folder..."
+)
+
+add_custom_target(copy_resources ALL
+    DEPENDS ${CMAKE_BINARY_DIR}/resources_stamp
+)
