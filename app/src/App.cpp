@@ -95,6 +95,7 @@ void App::Update()
 
 void App::HandleInput()
 {
+    camera.HandleInput();
 }
 
 void App::Run()
