@@ -76,6 +76,17 @@ App::~App()
 
 void App::Render()
 {
+    ShaderBuilder builder("resources/shaders/");
+    auto defaultShader = builder.AddShader(ShaderType::Vertex, "default")
+        .AddShader(ShaderType::Fragment, "default").Build();
+    defaultShader.Bind();
+    defaultShader.SetUniformMat4f("u_projectionMatrix", projectionMatrix);
+    defaultShader.SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
+    Square square;
+    square.Generate();
+
+    square.Render();
+
 }
 
 void App::Update()
@@ -93,15 +104,6 @@ void App::Run()
 		return;
 	}
 
-    ShaderBuilder builder("resources/shaders/");
-    auto defaultShader = builder.AddShader(ShaderType::Vertex, "default")
-        .AddShader(ShaderType::Fragment, "default").Build();
-	defaultShader.Bind();
-	defaultShader.SetUniformMat4f("u_projectionMatrix", projectionMatrix);
-	defaultShader.SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
-	Square square;
-	square.Generate();
-
     while (!glfwWindowShouldClose(window) && isRunning)
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -113,9 +115,7 @@ void App::Run()
 		HandleInput();
 		Update();
         Render();
-        square.Render();
 		ImGui::ShowDemoWindow();
-
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
