@@ -113,6 +113,7 @@ void App::Render()
 
 void App::Update()
 {
+    square->Update();
 }
 
 void App::HandleInput()

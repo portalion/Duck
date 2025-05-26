@@ -9,10 +9,10 @@ in FS_IN
 
 out vec4 FragColor;
 
-uniform vec3 lightPos = vec3(0.f, -20.f, 0.f);     // World-space light position
+uniform vec3 lightPos = vec3(0.f, -10.f, 0.f);     // World-space light position
 uniform vec3 viewPos;      // Camera position
 uniform vec3 lightColor = vec3(1.f, 1.f, 1.f);
-uniform vec3 objectColor = vec3(0.f, 0.5f, 0.f);
+uniform vec3 objectColor = vec3(0.2f, 0.2f, 0.5f);
 
 void main()
 {
@@ -41,6 +41,6 @@ void main()
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 10);
     vec3 specular = specularStrength * spec * lightColor;
 
-    vec3 result = (ambient + diffuse + specular) * normalize(i.worldPos.xyz);
+    vec3 result = (ambient + diffuse + specular) * objectColor;
     FragColor = vec4(result, 1.0);
 }

@@ -3,23 +3,17 @@
 
 class Square : public Renderable<PositionColorVertexData>
 {
-protected:
-	inline RenderableMesh<PositionColorVertexData> GenerateMesh() override
-	{
-		RenderableMesh<PositionColorVertexData> mesh;
-		mesh.vertices = {
-			{ { -1.f, -0.0f,-1.f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-			{ {  1.f, -0.0f,-1.f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-			{ { -1.f, -0.0f, 1.f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } },
-			{ {  1.f, -0.0f, 1.f, 1.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } }
-		};
-		mesh.indices = 
-		{ 
-			0, 1, 2, 2, 1, 3, 
-			0, 2, 1, 2, 3, 1,
-		};
-		return mesh;
-	}
+	
+private:
+	static const int N = 256;
+	static const float minT;
+	static const float h;
+
+	RenderableMesh<PositionColorVertexData> GenerateMesh() override;
+	float heightMap[N][N];
+	float prevHeightMap[N][N];
+	void UpdateHeightMap();
 public:
 	inline void Generate() { SaveMesh(); }
+	inline void Update() { UpdateHeightMap(); }
 };
