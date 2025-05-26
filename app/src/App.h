@@ -7,6 +7,7 @@
 #include "engine/Shader.h"
 #include <memory>
 #include "Square.h"
+#include "Duck.h"
 
 class App
 {
@@ -18,9 +19,11 @@ private:
 	Camera camera;
 	std::unique_ptr<Shader> cubeShader;
 	std::unique_ptr<Shader> waterShader;
+	std::unique_ptr<Shader> duckShader;
 
 	std::unique_ptr<Cube> cube;
 	std::unique_ptr<Square> square;
+	std::unique_ptr<Duck> duck;
 
 	bool InitializeContext(float width, float height);
 public:

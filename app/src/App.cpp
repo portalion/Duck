@@ -41,6 +41,7 @@ bool App::InitializeContext(float width, float height)
 
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
     std::cout << "GLSL Version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << std::endl;
+    glClearColor(0.2f, 0.6f, 0.9f, 1.0f);
     return true;
 }
 
@@ -77,13 +78,18 @@ App::App()
 	cube = std::make_unique<Cube>(faces);
 	square = std::make_unique<Square>();
     square->Generate();
+	duck = std::make_unique<Duck>();
+    duck->Generate();
 
     ShaderBuilder builder("resources/shaders/");
     ShaderBuilder builder2("resources/shaders/");
+    ShaderBuilder builder3("resources/shaders/");
     cubeShader = builder.AddShader(ShaderType::Vertex, "cube")
         .AddShader(ShaderType::Fragment, "cube").BuildUnique();
 	waterShader = builder2.AddShader(ShaderType::Vertex, "water")
 		.AddShader(ShaderType::Fragment, "water").BuildUnique();
+    duckShader = builder3.AddShader(ShaderType::Vertex, "duck")
+        .AddShader(ShaderType::Fragment, "duck").BuildUnique();
 }
 
 App::~App()
@@ -100,7 +106,6 @@ void App::Render()
     cubeShader->Bind();
     cubeShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
     cubeShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
-    cubeShader->SetUniformVec1i("u_Texture", 0);
     cube->Render();
 
     waterShader->Bind();
@@ -109,6 +114,13 @@ void App::Render()
     waterShader->SetUniformVec1i("u_Texture", 0);
     waterShader->SetUniformVec3f("viewPos", camera.GetPosition());
     square->Render();
+
+	duckShader->Bind();
+    duckShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
+    duckShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
+    duckShader->SetUniformVec1i("u_Texture", 0);
+	duckShader->SetUniformMat4f("u_modelMatrix", duck->GetModelMatrix());
+    duck->Render();
 }
 
 void App::Update()
