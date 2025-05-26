@@ -22,7 +22,7 @@ private:
 	std::unique_ptr<Shader> duckShader;
 
 	std::unique_ptr<Cube> cube;
-	std::unique_ptr<Square> square;
+	std::shared_ptr<Square> square;
 	std::unique_ptr<Duck> duck;
 
 	bool InitializeContext(float width, float height);

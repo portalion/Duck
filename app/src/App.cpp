@@ -78,9 +78,9 @@ App::App()
         "resources\\textures\\cubeTextures\\negz.jpg",
     };
 	cube = std::make_unique<Cube>(faces);
-	square = std::make_unique<Square>();
+	square = std::make_shared<Square>();
     square->Generate();
-	duck = std::make_unique<Duck>();
+	duck = std::make_unique<Duck>(square);
     duck->Generate();
 
     ShaderBuilder builder("resources/shaders/");
@@ -128,6 +128,7 @@ void App::Render()
 void App::Update()
 {
     square->Update();
+    duck->Update();
 }
 
 void App::HandleInput()
