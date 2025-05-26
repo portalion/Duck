@@ -17,6 +17,7 @@ private:
 	glm::mat4 projectionMatrix;
 	Camera camera;
 	std::unique_ptr<Shader> cubeShader;
+	std::unique_ptr<Shader> waterShader;
 
 	std::unique_ptr<Cube> cube;
 	std::unique_ptr<Square> square;

@@ -23,5 +23,6 @@ private:
 public:
 	Camera();
 	glm::mat4 GetViewMatrix();
+	inline glm::vec3 GetPosition() const { return position; }
 	void HandleInput();
 };

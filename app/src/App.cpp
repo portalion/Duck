@@ -79,8 +79,11 @@ App::App()
     square->Generate();
 
     ShaderBuilder builder("resources/shaders/");
+    ShaderBuilder builder2("resources/shaders/");
     cubeShader = builder.AddShader(ShaderType::Vertex, "cube")
         .AddShader(ShaderType::Fragment, "cube").BuildUnique();
+	waterShader = builder2.AddShader(ShaderType::Vertex, "water")
+		.AddShader(ShaderType::Fragment, "water").BuildUnique();
 }
 
 App::~App()
@@ -100,6 +103,11 @@ void App::Render()
     cubeShader->SetUniformVec1i("u_Texture", 0);
     cube->Render();
 
+    waterShader->Bind();
+    waterShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
+    waterShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
+    //waterShader->SetUniformVec1i("u_Texture", 0);
+    waterShader->SetUniformVec3f("viewPos", camera.GetPosition());
     square->Render();
 }
 

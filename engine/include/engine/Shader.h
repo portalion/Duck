@@ -34,6 +34,7 @@ public:
 	void SetUniformMat4f(const std::string& name, const glm::mat4x4& matrix);
 	void SetUniformVec1i(const std::string& name, const int& value);
 	void SetUniformVec4f(const std::string& name, const glm::vec4& vector);
+	void SetUniformVec3f(const std::string& name, const glm::vec3& vector);
 	void SetUniformVec2f(const std::string& name, const glm::vec2& vector);
 
 	void Bind() const;
