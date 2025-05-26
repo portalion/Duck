@@ -1,3 +1,4 @@
+#pragma once
 #include "engine/Renderable.h"
 
 class Square : public Renderable<PositionColorVertexData>

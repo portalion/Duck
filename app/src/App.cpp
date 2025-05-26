@@ -1,7 +1,6 @@
 #include "App.h"
 #include <iostream>
 #include "engine/ShaderBuilder.h"
-#include "Square.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -57,12 +56,26 @@ App::App()
 		return;
 	}
 
+    glEnable(GL_CULL_FACE);
+
     constexpr float fov = glm::radians(45.0f); 
     const float aspectRatio = width / height;     
     const float nearPlane = 0.1f;
-    const float farPlane = 100.0f;
+    const float farPlane = 200.0f;
 
 	projectionMatrix = glm::perspective(fov, aspectRatio, nearPlane, farPlane);
+
+    static const std::vector<std::string> faces
+    {
+        "resources\\textures\\cubeTextures\\posx.jpg",
+        "resources\\textures\\cubeTextures\\negx.jpg",
+        "resources\\textures\\cubeTextures\\posy.jpg",
+        "resources\\textures\\cubeTextures\\negy.jpg",
+        "resources\\textures\\cubeTextures\\posz.jpg",
+        "resources\\textures\\cubeTextures\\negz.jpg",
+    };
+	cube = std::make_unique<Cube>(faces);
+    //square.Generate();
 }
 
 App::~App()
@@ -82,11 +95,9 @@ void App::Render()
     defaultShader.Bind();
     defaultShader.SetUniformMat4f("u_projectionMatrix", projectionMatrix);
     defaultShader.SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
-    Square square;
-    square.Generate();
-
-    square.Render();
-
+	defaultShader.SetUniformVec1i("u_Texture", 0);
+    //square.Render();
+    cube->Render();
 }
 
 void App::Update()

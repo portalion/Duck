@@ -1,10 +1,13 @@
 #version 460 core
 
-layout(location = 0) out vec4 color;
+layout(location = 0) in vec3 i_texCoords;
 
-uniform vec4 u_color = vec4(1.f, 0.2f, 0.f, 1.f);
+layout(location = 0) out vec4 FragColor;
+
+uniform samplerCube  u_Texture;
 
 void main()
 {
-   color =  u_color;
-};
+    vec4 texColor = texture(u_Texture, i_texCoords);
+    FragColor = texColor;
+}
