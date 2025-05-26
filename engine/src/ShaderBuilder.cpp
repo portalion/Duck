@@ -52,3 +52,8 @@ std::shared_ptr<Shader> ShaderBuilder::BuildShared() const
 {
     return std::make_shared<Shader>(shaderSourceCodes, patchSize);
 }
+
+std::unique_ptr<Shader> ShaderBuilder::BuildUnique() const
+{
+    return std::make_unique<Shader>(shaderSourceCodes, patchSize);
+}

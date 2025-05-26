@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include "engine/Renderable.h"
 #include "Camera.h"
+#include "engine/Shader.h"
 #include <memory>
 //#include "Square.h"
 
@@ -16,7 +17,7 @@ private:
 	glm::mat4 projectionMatrix;
 	Camera camera;
 	std::unique_ptr<Cube> cube;
-	//Square square;
+	std::unique_ptr<Shader> cubeShader;
 
 	bool InitializeContext(float width, float height);
 public:

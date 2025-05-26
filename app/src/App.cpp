@@ -76,6 +76,10 @@ App::App()
     };
 	cube = std::make_unique<Cube>(faces);
     //square.Generate();
+
+    ShaderBuilder builder("resources/shaders/");
+    cubeShader = builder.AddShader(ShaderType::Vertex, "cube")
+        .AddShader(ShaderType::Fragment, "cube").BuildUnique();
 }
 
 App::~App()
@@ -89,14 +93,10 @@ App::~App()
 
 void App::Render()
 {
-    ShaderBuilder builder("resources/shaders/");
-    auto defaultShader = builder.AddShader(ShaderType::Vertex, "default")
-        .AddShader(ShaderType::Fragment, "default").Build();
-    defaultShader.Bind();
-    defaultShader.SetUniformMat4f("u_projectionMatrix", projectionMatrix);
-    defaultShader.SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
-	defaultShader.SetUniformVec1i("u_Texture", 0);
-    //square.Render();
+    cubeShader->Bind();
+    cubeShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
+    cubeShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
+    cubeShader->SetUniformVec1i("u_Texture", 0);
     cube->Render();
 }
 

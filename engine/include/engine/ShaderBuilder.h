@@ -19,4 +19,5 @@ public:
 
 	Shader Build() const;
 	std::shared_ptr<Shader> BuildShared() const;
+	std::unique_ptr<Shader> BuildUnique() const;
 };
