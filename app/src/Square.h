@@ -1,19 +1,23 @@
 #pragma once
 #include "engine/Renderable.h"
 
-class Square : public Renderable<PositionColorVertexData>
+class Square : public Renderable<PositionTextureVertexData>
 {
-	
 private:
 	static const int N = 256;
 	static const float minT;
 	static const float h;
 
-	RenderableMesh<PositionColorVertexData> GenerateMesh() override;
+	unsigned int heightTextureID;
+
+	RenderableMesh<PositionTextureVertexData> GenerateMesh() override;
 	float heightMap[N][N];
 	float prevHeightMap[N][N];
 	void UpdateHeightMap();
+	glm::vec3 CalculateNormal(int x, int y);
 public:
+	Square();
 	inline void Generate() { SaveMesh(); }
-	inline void Update() { UpdateHeightMap(); }
+	void Update();
+	void Render() const override;
 };

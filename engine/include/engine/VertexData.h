@@ -32,3 +32,9 @@ struct PositionNormalCubeTextureVertexData
 	glm::vec3 Normal;
 	glm::vec3 TextureCoords;
 };
+
+struct PositionTextureVertexData
+{
+	glm::vec4 Position;
+	glm::vec2 TextureCoords;
+};

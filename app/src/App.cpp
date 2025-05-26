@@ -106,7 +106,7 @@ void App::Render()
     waterShader->Bind();
     waterShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
     waterShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
-    //waterShader->SetUniformVec1i("u_Texture", 0);
+    waterShader->SetUniformVec1i("u_Texture", 0);
     waterShader->SetUniformVec3f("viewPos", camera.GetPosition());
     square->Render();
 }
