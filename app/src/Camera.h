@@ -17,7 +17,6 @@ private:
 	const float minRadius = 1.f;
 	const float maxRadius = 100.f;
 
-	float currentZoomLevel = 1.0f;
 	void HandleZoom(ImGuiMouseButton button);
 	void HandleRotation(ImGuiMouseButton button);
 	void UpdatePosition();

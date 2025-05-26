@@ -75,7 +75,8 @@ App::App()
         "resources\\textures\\cubeTextures\\negz.jpg",
     };
 	cube = std::make_unique<Cube>(faces);
-    //square.Generate();
+	square = std::make_unique<Square>();
+    square->Generate();
 
     ShaderBuilder builder("resources/shaders/");
     cubeShader = builder.AddShader(ShaderType::Vertex, "cube")
@@ -98,6 +99,8 @@ void App::Render()
     cubeShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
     cubeShader->SetUniformVec1i("u_Texture", 0);
     cube->Render();
+
+    square->Render();
 }
 
 void App::Update()

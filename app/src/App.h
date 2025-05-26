@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "engine/Shader.h"
 #include <memory>
-//#include "Square.h"
+#include "Square.h"
 
 class App
 {
@@ -16,8 +16,10 @@ private:
 
 	glm::mat4 projectionMatrix;
 	Camera camera;
-	std::unique_ptr<Cube> cube;
 	std::unique_ptr<Shader> cubeShader;
+
+	std::unique_ptr<Cube> cube;
+	std::unique_ptr<Square> square;
 
 	bool InitializeContext(float width, float height);
 public:

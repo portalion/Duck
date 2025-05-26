@@ -4,7 +4,7 @@
 class Square : public Renderable<PositionColorVertexData>
 {
 protected:
-	RenderableMesh<PositionColorVertexData> GenerateMesh() override
+	inline RenderableMesh<PositionColorVertexData> GenerateMesh() override
 	{
 		RenderableMesh<PositionColorVertexData> mesh;
 		mesh.vertices = {

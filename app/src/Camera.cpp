@@ -38,7 +38,7 @@ void Camera::UpdatePosition()
 }
 
 Camera::Camera()
-	: radius(10.0f), yaw(glm::radians(90.0f)), pitch(0.0f),
+	: radius(5.0f), yaw(glm::radians(90.0f)), pitch(0.0f),
 	minRadius(1.0f), maxRadius(100.0f)
 {
 	position = glm::vec3(0.0f, 0.0f, 5.0f);
