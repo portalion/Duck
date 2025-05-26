@@ -13,11 +13,14 @@ private:
 	RenderableMesh<PositionTextureVertexData> GenerateMesh() override;
 	float heightMap[N][N];
 	float prevHeightMap[N][N];
+	float d[N][N];
+	void MakeRain();
 	void UpdateHeightMap();
 	glm::vec3 CalculateNormal(int x, int y);
 public:
 	Square();
 	inline void Generate() { SaveMesh(); }
+	void BumpHeightMap(float x, float y);
 	void Update();
 	void Render() const override;
 };

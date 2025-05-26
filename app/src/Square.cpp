@@ -3,6 +3,7 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "engine/utils/GlCall.h"
+#include "random"
 
 const float Square::h = 2.f / static_cast<float>(N - 1);
 const float Square::minT = 1.f/ static_cast<float>(N - 1);
@@ -24,6 +25,16 @@ RenderableMesh<PositionTextureVertexData> Square::GenerateMesh()
 	return mesh;
 }
 
+void Square::MakeRain()
+{
+	if (std::rand() % 10 < 6) return;
+
+	int i = std::rand() % N;
+	int j = std::rand() % N;
+
+	heightMap[i][j] += 0.25f;
+}
+
 void Square::UpdateHeightMap()
 {
 	const float dt = std::min(ImGui::GetIO().DeltaTime, 1.f/ static_cast<float>(N));
@@ -36,12 +47,11 @@ void Square::UpdateHeightMap()
 		{
 			prevHeightMap[i][j] = A * (heightMap[i - 1][j] + heightMap[i + 1][j] +
 				heightMap[i][j - 1] + heightMap[i][j + 1]) + B * heightMap[i][j] - prevHeightMap[i][j];
+			prevHeightMap[i][j] *= d[i][j];
 		}
 	}
 
 	std::swap(prevHeightMap, heightMap);
-
-	heightMap[100][100] += 0.25f;
 }
 
 glm::vec3 Square::CalculateNormal(int x, int y)
@@ -63,6 +73,18 @@ glm::vec3 Square::CalculateNormal(int x, int y)
 	return normal;
 }
 
+float getMaxDistanceToEdge(int i, int j, int N) {
+	float x = float(i) / (N - 1) * 2.0f - 1.0f;
+	float y = float(j) / (N - 1) * 2.0f - 1.0f;
+
+	float left = x + 1.0f;
+	float right = 1.0f - x;
+	float bottom = y + 1.0f;
+	float top = 1.0f - y;
+
+	return std::max({ left, right, top, bottom });
+}
+
 Square::Square()
 {
 	for (int i = 0; i < N; i++)
@@ -71,6 +93,7 @@ Square::Square()
 		{
 			heightMap[i][j] = 0;
 			prevHeightMap[i][j] = 0;
+			d[i][j] = 0.95f * std::min(1.f, getMaxDistanceToEdge(i, j, N) / 0.2f);
 		}
 	}
 
@@ -83,8 +106,20 @@ Square::Square()
 	//GLCall(glTexStorage2D(GL_TEXTURE_2D, 1, GL_RGBA8, N, N));
 }
 
+void Square::BumpHeightMap(float x, float y)
+{
+	int i, j;
+	i = static_cast<int>((x + 1.f) / 2.f * N);
+	j = static_cast<int>((y + 1.f) / 2.f * N);
+	glm::clamp(i, 0, N - 1);
+	glm::clamp(j, 0, N - 1);
+
+	heightMap[i][j] += .25f;
+}
+
 void Square::Update()
 {
+	MakeRain();
 	UpdateHeightMap();
 	std::vector<unsigned char> normalData(N * N * 4);
 	for (int i = 0; i < N; ++i)
