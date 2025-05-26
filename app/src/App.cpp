@@ -58,6 +58,8 @@ App::App()
 	}
 
     glEnable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
     constexpr float fov = glm::radians(45.0f); 
     const float aspectRatio = width / height;     
@@ -142,7 +144,7 @@ void App::Run()
 
     while (!glfwWindowShouldClose(window) && isRunning)
     {
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
