@@ -10,4 +10,5 @@ protected:
 public:
     Cube(std::vector<std::string> faces);
     void Render() const override;
+	inline unsigned int GetTextureID() const { return textureID; }
 };

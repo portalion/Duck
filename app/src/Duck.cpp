@@ -67,6 +67,7 @@ glm::mat4 Duck::GetModelMatrix() const
 
 void Duck::Render() const
 {
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 	Renderable::Render();
 }

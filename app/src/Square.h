@@ -9,6 +9,7 @@ private:
 	static const float h;
 
 	unsigned int heightTextureID;
+	unsigned int cubeTextureID;
 
 	RenderableMesh<PositionTextureVertexData> GenerateMesh() override;
 	float heightMap[N][N];
@@ -18,7 +19,7 @@ private:
 	void UpdateHeightMap();
 	glm::vec3 CalculateNormal(int x, int y);
 public:
-	Square();
+	Square(unsigned int t);
 	inline void Generate() { SaveMesh(); }
 	void BumpHeightMap(float x, float y);
 	void Update();

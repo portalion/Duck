@@ -78,7 +78,7 @@ App::App()
         "resources\\textures\\cubeTextures\\negz.jpg",
     };
 	cube = std::make_unique<Cube>(faces);
-	square = std::make_shared<Square>();
+	square = std::make_shared<Square>(cube->GetTextureID());
     square->Generate();
 	duck = std::make_unique<Duck>(square);
     duck->Generate();
@@ -114,6 +114,7 @@ void App::Render()
     waterShader->SetUniformMat4f("u_projectionMatrix", projectionMatrix);
     waterShader->SetUniformMat4f("u_viewMatrix", camera.GetViewMatrix());
     waterShader->SetUniformVec1i("u_Texture", 0);
+    waterShader->SetUniformVec1i("u_Texture2", 1);
     waterShader->SetUniformVec3f("viewPos", camera.GetPosition());
     square->Render();
 

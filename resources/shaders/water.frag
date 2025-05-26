@@ -9,6 +9,7 @@ in FS_IN
 out vec4 FragColor;
 
 uniform sampler2D u_Texture;
+uniform samplerCube u_Texture2;
 
 uniform vec3 lightPos = vec3(0.f, -10.f, 0.f);     // World-space light position
 uniform vec3 viewPos;      // Camera position

@@ -32,7 +32,7 @@ void Square::MakeRain()
 	int i = std::rand() % N;
 	int j = std::rand() % N;
 
-	heightMap[i][j] += 0.25f;
+	heightMap[i][j] += 0.5f;
 }
 
 void Square::UpdateHeightMap()
@@ -85,7 +85,8 @@ float getMaxDistanceToEdge(int i, int j, int N) {
 	return std::max({ left, right, top, bottom });
 }
 
-Square::Square()
+Square::Square(unsigned int t)
+	:cubeTextureID{ t }
 {
 	for (int i = 0; i < N; i++)
 	{
@@ -145,7 +146,10 @@ void Square::Update()
 
 void Square::Render() const
 {
+	glActiveTexture(GL_TEXTURE0);
 	GLCall(glBindTexture(GL_TEXTURE_2D, heightTextureID));
+	glActiveTexture(GL_TEXTURE1);
+	GLCall(glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTextureID));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GLCall(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 	Renderable::Render();
