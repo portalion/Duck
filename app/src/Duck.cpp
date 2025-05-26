@@ -76,7 +76,7 @@ void Duck::Update()
 {
 	pos = spline.GetCurvePosition(time);
 	viewDir = spline.GetCurveTangent(time);
-	time += ImGui::GetIO().DeltaTime * 0.5f;
+	time += ImGui::GetIO().DeltaTime * 0.3f;
 	if (time >= 1.0f) 
 	{
 		time = 0.0f;
